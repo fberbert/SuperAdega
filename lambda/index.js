@@ -66,7 +66,7 @@ const VinhoIntentHandler = {
       }
     }
 
-    const speakOutput = await askOpenAi(`em um parágrafo, fale sobre o vinho ${vinho}`)
+    const speakOutput = await askOpenAi(`em no máximo 100 palavras, fale sobre o vinho ${vinho}`)
     console.log(speakOutput)
 
     // sair se responder não

@@ -1,7 +1,13 @@
 /* *
- * This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK (v2).
- * Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
- * session persistence, api calls, and more.
+ * Super Adega
+ *
+ * Desenvolvido por: 
+ *
+ *    Fábio Berbert de Paula <sou@mestrefabio.com>
+ *    Instagram: @alexabolada
+ *
+ * Início: 12-2022
+ *
  * */
 const Alexa = require('ask-sdk-core');
 
@@ -10,6 +16,7 @@ const LaunchRequestHandler = {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
   },
   handle(handlerInput) {
+    // frase de boas vindas
     const speakOutput = 'Por favor, fale o nome do vinho que deseja maiores informações';
 
     return handlerInput.responseBuilder
@@ -24,14 +31,56 @@ const VinhoIntentHandler = {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'VinhoIntent';
   },
-  handle(handlerInput) {
+  async handle(handlerInput) {
+    // setup da openAI  
+    const { Configuration, OpenAIApi } = require("openai")
+    const configuration = new Configuration({
+      apiKey: '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',
+    });
+    const openai = new OpenAIApi(configuration)
+
+    // recuperar o nome do vinho da pessoa
     const vinho = handlerInput.requestEnvelope.request.intent.slots.vinho.value
-    const speakOutput = `você escolheu o vinho ${vinho}`;
+
+    // função que irá retornar a resposta da inteligência artificial
+    const askOpenAi = async (query) => {
+      try {
+        const response = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: query,
+          temperature: 0.7,
+          max_tokens: 250,
+          top_p: 1,
+          frequency_penalty: 0.0,
+          presence_penalty: 0.0
+        })
+
+        // se nenhuma resposta foi recebida...
+        if ( response.data.choices.length === 0 )
+          return 'Estou com preguiça de responder essa pergunta'
+        else
+          return response.data.choices[0].text
+
+      } catch (err) {
+        return 'Estou com preguiça de responder essa pergunta'
+      }
+    }
+
+    const speakOutput = await askOpenAi(`em um parágrafo, fale sobre o vinho ${vinho}`)
+    console.log(speakOutput)
+
+    // sair se responder não
+    /*
+    if ( query.match(/(não|no|nao)/) && query.length < 5 ) {
+      return handlerInput.responseBuilder
+        .speak('Até a próxima!')
+        .getResponse()
+    }*/
 
     return handlerInput.responseBuilder
-      .speak(speakOutput)
-    //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-      .getResponse();
+      .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
+      //.reprompt('Mais algum pedido?')
+      .getResponse()
   }
 };
 

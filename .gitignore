@@ -1,5 +1,5 @@
 ask-resources.json
 .ask
-.swp
+*.swp
 .vscode
 lambda/node_modules

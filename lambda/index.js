@@ -49,7 +49,7 @@ const VinhoIntentHandler = {
           model: "text-davinci-003",
           prompt: query,
           temperature: 0.7,
-          max_tokens: 250,
+          max_tokens: 110,
           top_p: 1,
           frequency_penalty: 0.0,
           presence_penalty: 0.0

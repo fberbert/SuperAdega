@@ -54,7 +54,7 @@ const VinhoIntentHandler = {
     const vinho = handlerInput.requestEnvelope.request.intent.slots.vinho.value
 
     // sair se responder não
-    if ( vinho.match(/(não|nao|nenhum)/) && vinho.length < 5 ) {
+    if ( vinho.match(/(não|nao|nenhum|obrigado)/) && vinho.length < 9 ) {
       return handlerInput.responseBuilder
         .speak('Espero ter ajudado. Até a próxima!')
         .getResponse()

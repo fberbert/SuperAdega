@@ -80,32 +80,32 @@ const VinhoIntentHandler = {
 const HelpIntentHandler = {
   canHandle(handlerInput) {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
+      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent'
   },
   handle(handlerInput) {
-    const speakOutput = 'You can say hello to me! How can I help?';
+    const speakOutput = 'Fale o nome de qualquer vinho e eu lhe trarei maiores informações.'
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(speakOutput)
-      .getResponse();
+      .getResponse()
   }
-};
+}
 
 const CancelAndStopIntentHandler = {
   canHandle(handlerInput) {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
       && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent'
-        || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
+        || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent')
   },
   handle(handlerInput) {
-    const speakOutput = 'Goodbye!';
+    const speakOutput = 'Espero ter ajudado. Até a próxima!'
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
-      .getResponse();
+      .getResponse()
   }
-};
+}
 /* *
  * FallbackIntent triggers when a customer says something that doesn’t map to any intents in your skill
  * It must also be defined in the language model (if the locale supports it)
@@ -114,17 +114,17 @@ const CancelAndStopIntentHandler = {
 const FallbackIntentHandler = {
   canHandle(handlerInput) {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
+      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent'
   },
   handle(handlerInput) {
-    const speakOutput = 'Sorry, I don\'t know about that. Please try again.';
+    const speakOutput = 'Desculpe, estava distraída e não entendi o que você falou. Por favor tente novamente.'
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(speakOutput)
-      .getResponse();
+      .getResponse()
   }
-};
+}
 /* *
  * SessionEndedRequest notifies that a session was ended. This handler will be triggered when a currently open 
  * session is closed for one of the following reasons: 1) The user says "exit" or "quit". 2) The user does not 
@@ -132,14 +132,14 @@ const FallbackIntentHandler = {
  * */
 const SessionEndedRequestHandler = {
   canHandle(handlerInput) {
-    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest'
   },
   handle(handlerInput) {
-    console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
+    console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`)
     // Any cleanup logic goes here.
-    return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
+    return handlerInput.responseBuilder.getResponse() // notice we send an empty response
   }
-};
+}
 /* *
  * The intent reflector is used for interaction model testing and debugging.
  * It will simply repeat the intent the user said. You can create custom handlers for your intents 
@@ -147,18 +147,18 @@ const SessionEndedRequestHandler = {
  * */
 const IntentReflectorHandler = {
   canHandle(handlerInput) {
-    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
   },
   handle(handlerInput) {
-    const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
-    const speakOutput = `You just triggered ${intentName}`;
+    const intentName = Alexa.getIntentName(handlerInput.requestEnvelope)
+    const speakOutput = `You just triggered ${intentName}`
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
     //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-      .getResponse();
+      .getResponse()
   }
-};
+}
 /**
  * Generic error handling to capture any syntax or routing errors. If you receive an error
  * stating the request handler chain is not found, you have not implemented a handler for
@@ -166,24 +166,19 @@ const IntentReflectorHandler = {
  * */
 const ErrorHandler = {
   canHandle() {
-    return true;
+    return true
   },
   handle(handlerInput, error) {
-    const speakOutput = 'Sorry, I had trouble doing what you asked. Please try again.';
-    console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
+    const speakOutput = 'Me desculpe, eu dei uma cochilada. Por favor tente novamente.'
+    console.log(`~~~~ Error handled: ${JSON.stringify(error)}`)
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(speakOutput)
-      .getResponse();
+      .getResponse()
   }
-};
+}
 
-/**
- * This handler acts as the entry point for your skill, routing all request and response
- * payloads to the handlers above. Make sure any new handlers or interceptors you've
- * defined are included below. The order matters - they're processed top to bottom 
- * */
 exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
     LaunchRequestHandler,
@@ -197,4 +192,4 @@ exports.handler = Alexa.SkillBuilders.custom()
   .addErrorHandlers(
     ErrorHandler)
   .withCustomUserAgent('sample/hello-world/v1.2')
-  .lambda();
+  .lambda()

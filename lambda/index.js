@@ -22,7 +22,22 @@ const LaunchRequestHandler = {
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
+      .getResponse()
+  }
+}
+
+const VinhoGetIntentHandler = {
+  canHandle(handlerInput) {
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'VinhoIntent'
+      && !handlerInput.requestEnvelope.request.intent.slots.vinho.value
+  },
+  handle(handlerInput) {
+    const speakOutput = 'Mais algum vinho?'
+    return handlerInput.responseBuilder
+      .speak(speakOutput)
       .reprompt(speakOutput)
+      .addElicitSlotDirective('vinho')
       .getResponse()
   }
 }
@@ -30,7 +45,8 @@ const LaunchRequestHandler = {
 const VinhoIntentHandler = {
   canHandle(handlerInput) {
     return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'VinhoIntent';
+      && Alexa.getIntentName(handlerInput.requestEnvelope) === 'VinhoIntent'
+      && handlerInput.requestEnvelope.request.intent.slots.vinho.value
   },
   async handle(handlerInput) {
     // recuperar o nome do vinho da pessoa
@@ -50,13 +66,13 @@ const VinhoIntentHandler = {
     console.log(speakOutput)
     */
 
-    const speakOutput = "estou aqui"
+    const speakOutput = `estou aqui no vinho ${vinho}`
 
     return handlerInput.responseBuilder
       .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
       .reprompt('Mais algum vinho?')
+      .addElicitSlotDirective('vinho')
       .getResponse()
-      // .addElicitSlotDirective('vinho')
   }
 }
 
@@ -171,6 +187,7 @@ exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
     LaunchRequestHandler,
     VinhoIntentHandler,
+    VinhoGetIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,

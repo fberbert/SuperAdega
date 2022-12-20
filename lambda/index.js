@@ -9,22 +9,23 @@
  * Início: 12-2022
  *
  * */
-const Alexa = require('ask-sdk-core');
+const Alexa = require('ask-sdk-core')
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
-    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest'
   },
   handle(handlerInput) {
     // frase de boas vindas
-    const speakOutput = 'Por favor, fale o nome do vinho que deseja maiores informações';
+    const speakOutput = 'Por favor, fale o nome do vinho que deseja maiores informações'
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(speakOutput)
-      .getResponse();
+      .addElicitSlotDirective('vinho')
+      .getResponse()
   }
-};
+}
 
 const VinhoIntentHandler = {
   canHandle(handlerInput) {
@@ -66,20 +67,15 @@ const VinhoIntentHandler = {
       }
     }
 
-    const speakOutput = await askOpenAi(`em no máximo 100 palavras, fale sobre o vinho ${vinho}`)
+    const speakOutput = await askOpenAi(`
+      fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
+      me dê uma descrição curta
+      `)
     console.log(speakOutput)
-
-    // sair se responder não
-    /*
-    if ( query.match(/(não|no|nao)/) && query.length < 5 ) {
-      return handlerInput.responseBuilder
-        .speak('Até a próxima!')
-        .getResponse()
-    }*/
 
     return handlerInput.responseBuilder
       .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
-      //.reprompt('Mais algum pedido?')
+      .reprompt('Mais algum vinho?')
       .getResponse()
   }
 };

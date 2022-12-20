@@ -36,7 +36,6 @@ const VinhoIntentHandler = {
     // recuperar o nome do vinho da pessoa
     const vinho = handlerInput.requestEnvelope.request.intent.slots.vinho.value
 
-
     // sair se responder não
     if ( vinho.match(/(não|nao)/) && vinho.length < 5 ) {
       return handlerInput.responseBuilder

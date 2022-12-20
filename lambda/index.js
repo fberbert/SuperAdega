@@ -62,7 +62,7 @@ const VinhoIntentHandler = {
 
     const speakOutput = await tools.askOpenAi(`
       fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
-      me dê uma descrição curta
+      me dê uma descrição curta de no máximo 30 palavras
       `)
     // console.log(speakOutput)
 

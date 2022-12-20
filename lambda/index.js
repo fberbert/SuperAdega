@@ -72,8 +72,8 @@ const VinhoIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
       .reprompt('Mais algum vinho?')
-      .addElicitSlotDirective('vinho')
       .getResponse()
+      // .addElicitSlotDirective('vinho')
   }
 }
 

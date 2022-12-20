@@ -10,6 +10,7 @@
  *
  * */
 const Alexa = require('ask-sdk-core')
+const tools = require('./functions')
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -32,39 +33,9 @@ const VinhoIntentHandler = {
       && Alexa.getIntentName(handlerInput.requestEnvelope) === 'VinhoIntent';
   },
   async handle(handlerInput) {
-    // setup da openAI  
-    const { Configuration, OpenAIApi } = require("openai")
-    const configuration = new Configuration({
-      apiKey: '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',
-    });
-    const openai = new OpenAIApi(configuration)
-
     // recuperar o nome do vinho da pessoa
     const vinho = handlerInput.requestEnvelope.request.intent.slots.vinho.value
 
-    // função que irá retornar a resposta da inteligência artificial
-    const askOpenAi = async (query) => {
-      try {
-        const response = await openai.createCompletion({
-          model: "text-davinci-003",
-          prompt: query,
-          temperature: 1,
-          max_tokens: 110,
-          top_p: 1,
-          frequency_penalty: 0.0,
-          presence_penalty: 0.0
-        })
-
-        // se nenhuma resposta foi recebida...
-        if ( response.data.choices.length === 0 )
-          return 'Estou com preguiça de responder essa pergunta'
-        else
-          return response.data.choices[0].text
-
-      } catch (err) {
-        return 'Estou com preguiça de responder essa pergunta'
-      }
-    }
 
     // sair se responder não
     if ( vinho.match(/(não|nao)/) && vinho.length < 5 ) {
@@ -73,7 +44,7 @@ const VinhoIntentHandler = {
         .getResponse()
     }
 
-    const speakOutput = await askOpenAi(`
+    const speakOutput = await tools.askOpenAi(`
       fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
       me dê uma descrição curta
       `)
@@ -85,7 +56,7 @@ const VinhoIntentHandler = {
       .addElicitSlotDirective('vinho')
       .getResponse()
   }
-};
+}
 
 const HelpIntentHandler = {
   canHandle(handlerInput) {

@@ -22,7 +22,6 @@ const LaunchRequestHandler = {
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(speakOutput)
-      .addElicitSlotDirective('vinho')
       .getResponse()
   }
 }
@@ -49,7 +48,7 @@ const VinhoIntentHandler = {
         const response = await openai.createCompletion({
           model: "text-davinci-003",
           prompt: query,
-          temperature: 0.7,
+          temperature: 1,
           max_tokens: 110,
           top_p: 1,
           frequency_penalty: 0.0,

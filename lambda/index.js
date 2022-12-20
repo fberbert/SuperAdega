@@ -66,6 +66,13 @@ const VinhoIntentHandler = {
       }
     }
 
+    // sair se responder não
+    if ( vinho.match(/(não|nao)/) && vinho.length < 5 ) {
+      return handlerInput.responseBuilder
+        .speak('Espero ter ajudado. Até a próxima!')
+        .getResponse()
+    }
+
     const speakOutput = await askOpenAi(`
       fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
       me dê uma descrição curta
@@ -75,6 +82,7 @@ const VinhoIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
       .reprompt('Mais algum vinho?')
+      .addElicitSlotDirective('vinho')
       .getResponse()
   }
 };

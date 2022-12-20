@@ -44,17 +44,20 @@ const VinhoIntentHandler = {
         .getResponse()
     }
 
-    const speakOutput = await tools.askOpenAi(`
+    /* const speakOutput = await tools.askOpenAi(`
       fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
       me dê uma descrição curta
       `)
     console.log(speakOutput)
+    */
+
+    const speakOutput = "estou aqui"
 
     return handlerInput.responseBuilder
       .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
       .reprompt('Mais algum vinho?')
-      .addElicitSlotDirective('vinho')
       .getResponse()
+      // .addElicitSlotDirective('vinho')
   }
 }
 

@@ -10,7 +10,7 @@
  *
  * */
 const Alexa = require('ask-sdk-core')
-const tools = require('./functions')
+const Tools = require('./functions')
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -63,7 +63,7 @@ const VinhoIntentHandler = {
         .getResponse()
     }
 
-    const speakOutput = await tools.askOpenAi(`
+    const speakOutput = await Tools.askOpenAi(`
       Fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
       me dê uma descrição curta de no máximo 30 palavras. Se o 
       vinho não existir, não invente nenhum texto, apenas responda 

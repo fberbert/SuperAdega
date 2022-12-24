@@ -71,8 +71,6 @@ const VinhoIntentHandler = {
       `)
     // console.log(speakOutput)
 
-    // const speakOutput = `estou aqui no vinho ${vinho}`
-
     return handlerInput.responseBuilder
       .speak(speakOutput.replace(/^[^a-zA-Z0-9]*/, ''))
       .reprompt('Mais algum vinho?')

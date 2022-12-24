@@ -1,42 +1,43 @@
 {
-    "interactionModel": {
-        "languageModel": {
-            "invocationName": "super adega",
-            "intents": [
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "VinhoIntent",
-                    "slots": [
-                        {
-                            "name": "vinho",
-                            "type": "AMAZON.SearchQuery"
-                        }
-                    ],
-                    "samples": [
-                        "fale de {vinho}",
-                        "fale sobre {vinho}",
-                        "vinho {vinho}",
-                        "fale do vinho {vinho}",
-                        " {vinho} "
-                    ]
-                }
-            ],
-            "types": []
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "super adega",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "VinhoIntent",
+          "slots": [
+            {
+              "name": "vinho",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "fale de {vinho}",
+            "fale sobre {vinho}",
+            "vinho {vinho}",
+            "fale do vinho {vinho}",
+            " {vinho} "
+          ]
         }
+      ],
+      "types": []
     }
+  },
+  "version": "5"
 }

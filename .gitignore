@@ -2,4 +2,5 @@ ask-resources.json
 .ask
 *.swp
 .vscode
+.eslintrc.js
 lambda/node_modules

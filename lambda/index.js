@@ -65,9 +65,7 @@ const VinhoIntentHandler = {
 
     const speakOutput = await Tools.askOpenAi(`
       Fale sobre o vinho ${vinho}, seja o mais objetivo possível, 
-      me dê uma descrição curta de no máximo 30 palavras. Se o 
-      vinho não existir, não invente nenhum texto, apenas responda 
-      que o vinho não existe ou a pronúncia está incorreta. Considere 
+      me dê uma descrição curta de no máximo 30 palavras. Considere 
       que eu possa ter escrito o vinho errado, neste caso tente 
       corrigir a escrita para mim.
       `)

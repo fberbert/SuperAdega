@@ -3,4 +3,5 @@ ask-resources.json
 *.swp
 .vscode
 .eslintrc.js
+.env
 lambda/node_modules

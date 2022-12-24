@@ -1,10 +1,12 @@
+require('dotenv').config()
+
 // função que irá retornar a resposta da inteligência artificial
 const askOpenAi = async (query) => {
   try {
     // setup da openAI  
     const { Configuration, OpenAIApi } = require("openai")
     const configuration = new Configuration({
-      apiKey: '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',
+      apiKey: process.env.API_KEY,
     })
     const openai = new OpenAIApi(configuration)
 

@@ -1,3 +1,4 @@
+// dotenv para separar API_KEY em arquivo oculto
 require('dotenv').config()
 
 // função que irá retornar a resposta da inteligência artificial
